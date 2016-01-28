@@ -7,11 +7,12 @@
 //
 
 #import "SearchHistoryView.h"
-#import "FHFlowLayout.h"
+#import "SHFlowLayout.h"
 #import "SearchHistoryCollectionCell.h"
-#import "SearchHistory.h"
+#import "SearchHistoryModel.h"
 #define SCREENWIDTH  [UIScreen mainScreen].bounds.size.width
 #define DefaultColor [UIColor colorWithWhite:0.95 alpha:1.0]
+#define SectionHeaderHeight 30
 static CGFloat const margin = 5;
 static CGFloat const lineCount = 2;
 
@@ -22,7 +23,7 @@ static NSString *const headCollection = @"headCollection";
 {
     UICollectionView *_collectionView;
 //    UICollectionViewFlowLayout *_layout;
-    FHFlowLayout *_layout;
+    SHFlowLayout *_layout;
     NSMutableArray *_hotArray;
     NSMutableArray *_historyArray;
 }
@@ -41,26 +42,27 @@ static NSString *const headCollection = @"headCollection";
     _hotArray = @[].mutableCopy;
     _hotArray = [NSMutableArray arrayWithArray:[NSArray arrayWithObjects:@"家电的",@"对方的说法",@"舍得放开舍得放开",@"是",@"都结婚后很快就回家看很",@"舍得舍得放开",@"舍得放开舍得放开",@"舍得放开舍得放开", nil]];
 
-    _historyArray = [[SearchHistory shareInstance] getSearchHistoryMArray];
+    _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
     
-    [[SearchHistory shareInstance]saveSearchItemHistory];
+    [[SearchHistoryModel shareInstance]saveSearchItemHistory];
     [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
 }
 
 - (void)setupCollectionView {
    
-    _layout = [[FHFlowLayout alloc]init];
+    _layout = [[SHFlowLayout alloc]init];
     _layout.minimumInteritemSpacing = margin;
     _layout.minimumLineSpacing = margin;
-    _layout.headerReferenceSize = CGSizeMake(SCREENWIDTH, 30);
+    _layout.headerReferenceSize = CGSizeMake(SCREENWIDTH, SectionHeaderHeight);
     
     _collectionView = [[UICollectionView alloc]initWithFrame:self.bounds collectionViewLayout:_layout];
     _collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth |UIViewAutoresizingFlexibleHeight;
     _collectionView.backgroundColor = DefaultColor;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-    UINib *nib = [UINib nibWithNibName:@"SearchHistoryCollectionCell" bundle:[NSBundle mainBundle]];
-    [_collectionView registerNib:nib forCellWithReuseIdentifier:itemCollection];
+//    UINib *nib = [UINib nibWithNibName:@"SearchHistoryCollectionCell" bundle:[NSBundle mainBundle]];
+//    [_collectionView registerNib:nib forCellWithReuseIdentifier:itemCollection];
+    [_collectionView registerClass:[SearchHistoryCollectionCell class] forCellWithReuseIdentifier:itemCollection];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headCollection];
     [self addSubview:_collectionView];
 }
@@ -97,12 +99,15 @@ static NSString *const headCollection = @"headCollection";
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
     UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headCollection forIndexPath:indexPath ];
     headerView.backgroundColor= [UIColor whiteColor];
+    
     UIImageView *icon = [[UIImageView alloc]initWithFrame:CGRectMake(20, 5/2, 25, 25)];
     icon.image = indexPath.section == 0?[UIImage imageNamed:@"iconfont-remen"]:[UIImage imageNamed:@"iconfont-lishi"];
     [headerView addSubview:icon];
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(55, 0, SCREENWIDTH/2, 30)];
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH/2, 30)];
     label.text = indexPath.section == 0? @"热门搜索":@"历史搜索";
     if (indexPath.section == 1) {
         UIButton *btn = [[UIButton alloc] init];
@@ -119,9 +124,10 @@ static NSString *const headCollection = @"headCollection";
     return headerView;
 }
 - (void)clearBtn {
-    [[SearchHistory shareInstance] clearAllSearchHistory];
+    [[SearchHistoryModel shareInstance] clearAllSearchHistory];
     [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
 }
+//根据文字大小计算不同item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGSize size = CGSizeZero;
     if (indexPath.section == 0) {

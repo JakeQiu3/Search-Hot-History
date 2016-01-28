@@ -10,6 +10,6 @@
 
 @interface SearchHistoryCollectionCell : UICollectionViewCell
 
-@property (weak, nonatomic)IBOutlet  UILabel *titleLabel;
+@property (weak, nonatomic) UILabel *titleLabel;
 
 @end

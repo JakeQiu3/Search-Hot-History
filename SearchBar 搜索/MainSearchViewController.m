@@ -6,29 +6,37 @@
 //  Copyright © 2015年 QSY. All rights reserved.
 //
 
-#import "LifeServiceSearchViewController.h"
+#import "MainSearchViewController.h"
 #import "SearchBarView.h"
 #import "SearchHistoryView.h"
-#import "SearchHistory.h"
+#import "SearchHistoryModel.h"
 #define SCREENWIDTH  [UIScreen mainScreen].bounds.size.width
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
 #define DefaultColor [UIColor colorWithWhite:0.95 alpha:1.0]
-@interface LifeServiceSearchViewController () <UITextFieldDelegate,SearchBarViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface MainSearchViewController () <UITextFieldDelegate,SearchBarViewDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     NSArray *_dataArray;//数据数组
-//    BOOL _isSearching;
     NSMutableArray *_searchArray;//搜索内容数组
     NSMutableArray *_historyArray;//输入搜索的历史数组
     UITableView *_tabeleView;
 }
 @end
 
-@implementation LifeServiceSearchViewController
+@implementation MainSearchViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = DefaultColor;
     _historyArray = @[].mutableCopy;
+   
+    [self initNavigationBarItem];//初始化导航条内容
+    [self addSearchContentView];//添加搜索内容（热门和历史）视图
+    [self initData];//初始化数据
+    [self creatTable];//创建搜索历史的tableview
+    
+}
+
+- (void)initNavigationBarItem {
     SearchBarView *search = [[SearchBarView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH*2/3, 30) placeHolder:@"输入服务名称" Delegate:self];
     search.layer.masksToBounds =YES;
     search.layer.cornerRadius = 10;
@@ -39,24 +47,21 @@
     UIBarButtonItem *btn = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(popVC)];
     btn.tintColor = [UIColor blueColor];
     self.navigationItem.rightBarButtonItem = btn;
-    
+}
+
+- (void)addSearchContentView {
     SearchHistoryView *history = [[SearchHistoryView alloc]initWithFrame:self.view.bounds];
     [self.view addSubview:history];
-    [self initData];
-    [self initSearchData];
-    [self creatTable];
-}
 
-//加载总数据源
+}
+//加载数据源
 - (void)initData {
+//    热门搜索的数据
     _dataArray = @[@"家电的",@"对方的说法",@"舍得放开舍得放开",@"是",@"都结婚后很快就回家看很"];
+    _searchArray = [[NSMutableArray alloc] init];
+    _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
 }
 
-- (void)initSearchData {
-    _searchArray = [[NSMutableArray alloc] init];
-    _historyArray = [[SearchHistory shareInstance] getSearchHistoryMArray];
-    
-}
 - (void)creatTable {
     //    创建tableview
     _tabeleView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT-64) style:UITableViewStylePlain];
@@ -124,6 +129,7 @@
 }
 
 - (void)popVC {
+   
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -132,13 +138,14 @@
         NSLog(@"hhh");
     UITableViewCell *cell;
     cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-   _historyArray = [[SearchHistory shareInstance] getSearchHistoryMArray];
+   _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
 //    [_historyArray addObject:cell.textLabel.text];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [_tabeleView endEditing:YES];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     

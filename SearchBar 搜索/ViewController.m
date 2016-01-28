@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "LifeServiceSearchViewController.h"
+#import "MainSearchViewController.h"
 @interface ViewController ()
 
 @end
@@ -17,9 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UIButton *btn = [[UIButton alloc] init];
-    btn.frame = CGRectMake(0, 0, 100, 30);
+    btn.frame = CGRectMake(0, 0, 150, 30);
     btn.center = self.view.center;
     [btn setTitle: @"搜索" forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:17];
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     btn.layer.masksToBounds = YES;
     btn.layer.cornerRadius = 10;
@@ -29,7 +30,7 @@
 }
 
 - (void)push:(UIButton *)btn {
-    LifeServiceSearchViewController *lifeVC = [[LifeServiceSearchViewController alloc] init];
+    MainSearchViewController *lifeVC = [[MainSearchViewController alloc] init];
     [self.navigationController pushViewController:lifeVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {

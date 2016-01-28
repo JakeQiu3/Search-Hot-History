@@ -1,5 +1,5 @@
 //
-//  LifeServiceSearchViewController.h
+//  FHFlowLayout.h
 //  VinuxPost
 //
 //  Created by qsy on 15/12/30.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LifeServiceSearchViewController : UIViewController
+@interface SHFlowLayout : UICollectionViewFlowLayout
 
 @end

@@ -11,9 +11,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SearchHistory : NSObject
+@interface SearchHistoryModel : NSObject
 
-+(SearchHistory*)shareInstance;
++(SearchHistoryModel*)shareInstance;
 
 /**
  *  获取历史搜索记录

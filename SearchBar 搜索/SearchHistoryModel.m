@@ -9,11 +9,11 @@
 /// 历史记录保存路径
 #define ASETTING_SEARCH_ITEM_FILE_NAME @"/searchItemHistory.txt"
 
-#import "SearchHistory.h"
+#import "SearchHistoryModel.h"
 
-static SearchHistory *searchHistory = nil;
+static SearchHistoryModel *searchHistory = nil;
 
-@interface SearchHistory ()
+@interface SearchHistoryModel ()
 
 /**
  *  搜索历史
@@ -23,13 +23,13 @@ static SearchHistory *searchHistory = nil;
 
 @end
 
-@implementation SearchHistory
+@implementation SearchHistoryModel
 
-+(SearchHistory*)shareInstance {
++(SearchHistoryModel*)shareInstance {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (nil == searchHistory) {
-            searchHistory = [[SearchHistory alloc] init];
+            searchHistory = [[SearchHistoryModel alloc] init];
         }
     });
     
@@ -60,22 +60,22 @@ static SearchHistory *searchHistory = nil;
 
 -(void)addSearchHistoryWithDic:(NSDictionary*)dic {
     if (nil == dic) return;
-    NSInteger index = [[SearchHistory shareInstance].searchHistoryMArray indexOfObject:dic];
+    NSInteger index = [[SearchHistoryModel shareInstance].searchHistoryMArray indexOfObject:dic];
     if (index == NSNotFound || -1 == index) {
-        [[SearchHistory shareInstance].searchHistoryMArray insertObject:dic atIndex:0];
+        [[SearchHistoryModel shareInstance].searchHistoryMArray insertObject:dic atIndex:0];
     } else {
         // 存在
     }
-    [[SearchHistory shareInstance] saveSearchItemHistory];
+    [[SearchHistoryModel shareInstance] saveSearchItemHistory];
 }
 
 -(void)clearAllSearchHistory {
-    [[SearchHistory shareInstance].searchHistoryMArray removeAllObjects];
-    [[SearchHistory shareInstance] saveSearchItemHistory];
+    [[SearchHistoryModel shareInstance].searchHistoryMArray removeAllObjects];
+    [[SearchHistoryModel shareInstance] saveSearchItemHistory];
 }
 
 -(NSMutableArray*)getSearchHistoryMArray {
-    return [SearchHistory shareInstance].searchHistoryMArray;
+    return [SearchHistoryModel shareInstance].searchHistoryMArray;
 }
 
 //保存历史记录

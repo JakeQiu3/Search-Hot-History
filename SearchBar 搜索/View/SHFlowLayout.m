@@ -6,9 +6,9 @@
 //  Copyright © 2015年 QSY. All rights reserved.
 //
 
-#import "FHFlowLayout.h"
+#import "SHFlowLayout.h"
 
-@implementation FHFlowLayout
+@implementation SHFlowLayout
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
     NSMutableArray *superAttributes = [NSMutableArray arrayWithArray:[super layoutAttributesForElementsInRect:rect]];//获取到的item数组

@@ -17,12 +17,11 @@
 		73E70BE71C34CBCC003CFDEE /* UIKeyboardC+animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BE11C34CBCC003CFDEE /* UIKeyboardC+animation.m */; };
 		73E70BE81C34CBCC003CFDEE /* UIKeyboardC.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BE31C34CBCC003CFDEE /* UIKeyboardC.m */; };
 		73E70BE91C34CBCC003CFDEE /* UIView+FirstResponderNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BE51C34CBCC003CFDEE /* UIView+FirstResponderNotification.m */; };
-		73E70BFA1C353ECB003CFDEE /* LifeServiceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BF91C353ECB003CFDEE /* LifeServiceSearchViewController.m */; };
-		73E70C021C353F42003CFDEE /* FHFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BFD1C353F42003CFDEE /* FHFlowLayout.m */; };
+		73E70BFA1C353ECB003CFDEE /* MainSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BF91C353ECB003CFDEE /* MainSearchViewController.m */; };
+		73E70C021C353F42003CFDEE /* SHFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BFD1C353F42003CFDEE /* SHFlowLayout.m */; };
 		73E70C031C353F42003CFDEE /* SearchHistoryCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BFF1C353F42003CFDEE /* SearchHistoryCollectionCell.m */; };
 		73E70C041C353F42003CFDEE /* SearchHistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70C011C353F42003CFDEE /* SearchHistoryView.m */; };
-		73E70C061C353F7F003CFDEE /* SearchHistoryCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73E70C051C353F7F003CFDEE /* SearchHistoryCollectionCell.xib */; };
-		73E70C091C35414A003CFDEE /* SearchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70C081C35414A003CFDEE /* SearchHistory.m */; };
+		73E70C091C35414A003CFDEE /* SearchHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70C081C35414A003CFDEE /* SearchHistoryModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +34,8 @@
 		7312FEB01C33766700226180 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73E70BD71C34C999003CFDEE /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		73E70BD81C34C999003CFDEE /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		73E70BDA1C34CB7F003CFDEE /* SearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBarView.h; sourceTree = "<group>"; };
-		73E70BDB1C34CB7F003CFDEE /* SearchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBarView.m; sourceTree = "<group>"; };
+		73E70BDA1C34CB7F003CFDEE /* SearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchBarView.h; path = ../SearchBarView.h; sourceTree = "<group>"; };
+		73E70BDB1C34CB7F003CFDEE /* SearchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchBarView.m; path = ../SearchBarView.m; sourceTree = "<group>"; };
 		73E70BDE1C34CBCC003CFDEE /* UIKeyboardC+AccessObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKeyboardC+AccessObject.h"; sourceTree = "<group>"; };
 		73E70BDF1C34CBCC003CFDEE /* UIKeyboardC+AccessObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIKeyboardC+AccessObject.m"; sourceTree = "<group>"; };
 		73E70BE01C34CBCC003CFDEE /* UIKeyboardC+animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKeyboardC+animation.h"; sourceTree = "<group>"; };
@@ -45,17 +44,16 @@
 		73E70BE31C34CBCC003CFDEE /* UIKeyboardC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIKeyboardC.m; sourceTree = "<group>"; };
 		73E70BE41C34CBCC003CFDEE /* UIView+FirstResponderNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FirstResponderNotification.h"; sourceTree = "<group>"; };
 		73E70BE51C34CBCC003CFDEE /* UIView+FirstResponderNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FirstResponderNotification.m"; sourceTree = "<group>"; };
-		73E70BF81C353ECB003CFDEE /* LifeServiceSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeServiceSearchViewController.h; sourceTree = "<group>"; };
-		73E70BF91C353ECB003CFDEE /* LifeServiceSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeServiceSearchViewController.m; sourceTree = "<group>"; };
-		73E70BFC1C353F42003CFDEE /* FHFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHFlowLayout.h; sourceTree = "<group>"; };
-		73E70BFD1C353F42003CFDEE /* FHFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHFlowLayout.m; sourceTree = "<group>"; };
+		73E70BF81C353ECB003CFDEE /* MainSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainSearchViewController.h; sourceTree = "<group>"; };
+		73E70BF91C353ECB003CFDEE /* MainSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSearchViewController.m; sourceTree = "<group>"; };
+		73E70BFC1C353F42003CFDEE /* SHFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHFlowLayout.h; sourceTree = "<group>"; };
+		73E70BFD1C353F42003CFDEE /* SHFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHFlowLayout.m; sourceTree = "<group>"; };
 		73E70BFE1C353F42003CFDEE /* SearchHistoryCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryCollectionCell.h; sourceTree = "<group>"; };
 		73E70BFF1C353F42003CFDEE /* SearchHistoryCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryCollectionCell.m; sourceTree = "<group>"; };
 		73E70C001C353F42003CFDEE /* SearchHistoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryView.h; sourceTree = "<group>"; };
 		73E70C011C353F42003CFDEE /* SearchHistoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryView.m; sourceTree = "<group>"; };
-		73E70C051C353F7F003CFDEE /* SearchHistoryCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchHistoryCollectionCell.xib; sourceTree = "<group>"; };
-		73E70C071C35414A003CFDEE /* SearchHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistory.h; sourceTree = "<group>"; };
-		73E70C081C35414A003CFDEE /* SearchHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistory.m; sourceTree = "<group>"; };
+		73E70C071C35414A003CFDEE /* SearchHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryModel.h; sourceTree = "<group>"; };
+		73E70C081C35414A003CFDEE /* SearchHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,13 +113,14 @@
 		73E70BCE1C34C5E9003CFDEE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				73E70BFC1C353F42003CFDEE /* FHFlowLayout.h */,
-				73E70BFD1C353F42003CFDEE /* FHFlowLayout.m */,
+				73E70BDA1C34CB7F003CFDEE /* SearchBarView.h */,
+				73E70BDB1C34CB7F003CFDEE /* SearchBarView.m */,
+				73E70BFC1C353F42003CFDEE /* SHFlowLayout.h */,
+				73E70BFD1C353F42003CFDEE /* SHFlowLayout.m */,
 				73E70C001C353F42003CFDEE /* SearchHistoryView.h */,
 				73E70C011C353F42003CFDEE /* SearchHistoryView.m */,
 				73E70BFE1C353F42003CFDEE /* SearchHistoryCollectionCell.h */,
 				73E70BFF1C353F42003CFDEE /* SearchHistoryCollectionCell.m */,
-				73E70C051C353F7F003CFDEE /* SearchHistoryCollectionCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -144,8 +143,6 @@
 		73E70BEA1C34CC28003CFDEE /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				73E70BDA1C34CB7F003CFDEE /* SearchBarView.h */,
-				73E70BDB1C34CB7F003CFDEE /* SearchBarView.m */,
 				73E70BDD1C34CBCC003CFDEE /* UIKeyBoard */,
 			);
 			name = Library;
@@ -154,8 +151,8 @@
 		73E70BFB1C353EDD003CFDEE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				73E70BF81C353ECB003CFDEE /* LifeServiceSearchViewController.h */,
-				73E70BF91C353ECB003CFDEE /* LifeServiceSearchViewController.m */,
+				73E70BF81C353ECB003CFDEE /* MainSearchViewController.h */,
+				73E70BF91C353ECB003CFDEE /* MainSearchViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -163,8 +160,8 @@
 		73E70C0A1C35414D003CFDEE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				73E70C071C35414A003CFDEE /* SearchHistory.h */,
-				73E70C081C35414A003CFDEE /* SearchHistory.m */,
+				73E70C071C35414A003CFDEE /* SearchHistoryModel.h */,
+				73E70C081C35414A003CFDEE /* SearchHistoryModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -228,7 +225,6 @@
 			files = (
 				7312FEAF1C33766700226180 /* LaunchScreen.storyboard in Resources */,
 				7312FEAC1C33766700226180 /* Assets.xcassets in Resources */,
-				73E70C061C353F7F003CFDEE /* SearchHistoryCollectionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,19 +235,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73E70C091C35414A003CFDEE /* SearchHistory.m in Sources */,
+				73E70C091C35414A003CFDEE /* SearchHistoryModel.m in Sources */,
 				73E70BE71C34CBCC003CFDEE /* UIKeyboardC+animation.m in Sources */,
 				73E70BE91C34CBCC003CFDEE /* UIView+FirstResponderNotification.m in Sources */,
 				73E70BE81C34CBCC003CFDEE /* UIKeyboardC.m in Sources */,
 				7312FEA41C33766700226180 /* AppDelegate.m in Sources */,
 				73E70BD91C34C999003CFDEE /* ViewController.m in Sources */,
 				73E70BE61C34CBCC003CFDEE /* UIKeyboardC+AccessObject.m in Sources */,
-				73E70BFA1C353ECB003CFDEE /* LifeServiceSearchViewController.m in Sources */,
+				73E70BFA1C353ECB003CFDEE /* MainSearchViewController.m in Sources */,
 				73E70C041C353F42003CFDEE /* SearchHistoryView.m in Sources */,
 				73E70C031C353F42003CFDEE /* SearchHistoryCollectionCell.m in Sources */,
 				73E70BDC1C34CB7F003CFDEE /* SearchBarView.m in Sources */,
 				7312FEA11C33766700226180 /* main.m in Sources */,
-				73E70C021C353F42003CFDEE /* FHFlowLayout.m in Sources */,
+				73E70C021C353F42003CFDEE /* SHFlowLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
