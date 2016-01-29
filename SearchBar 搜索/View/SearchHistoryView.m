@@ -44,6 +44,7 @@ static NSString *const headCollection = @"headCollection";
     _hotArray = [NSMutableArray arrayWithArray:[NSArray arrayWithObjects:@"家电的",@"对方的说法",@"舍得放开舍得放开",@"是",@"都结婚后很快就回家看很",@"舍得舍得放开",@"舍得放开舍得放开",@"舍得放开舍得放开", nil]];
 
     _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
+    [[SearchHistoryModel shareInstance]saveSearchItemHistory];
     _newHistoryArray = [[NSMutableArray alloc] init];
     //    反向迭代器
     NSEnumerator *enumerator = [_historyArray reverseObjectEnumerator];
@@ -51,7 +52,6 @@ static NSString *const headCollection = @"headCollection";
     while (objc =[enumerator nextObject]) {
         [_newHistoryArray addObject:objc];
     }
-    [[SearchHistoryModel shareInstance]saveSearchItemHistory];
     [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
 }
 
