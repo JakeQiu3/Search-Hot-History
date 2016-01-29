@@ -139,7 +139,8 @@
     UITableViewCell *cell;
     cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
    _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
-//    [_historyArray addObject:cell.textLabel.text];
+    [_historyArray addObject:cell.textLabel.text];
+   
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

@@ -78,7 +78,7 @@ static SearchHistoryModel *searchHistory = nil;
     return [SearchHistoryModel shareInstance].searchHistoryMArray;
 }
 
-//保存历史记录
+// 保存历史记录
 - (void)saveSearchItemHistory
 {
     NSMutableArray *fileArray = [[NSMutableArray alloc] init];

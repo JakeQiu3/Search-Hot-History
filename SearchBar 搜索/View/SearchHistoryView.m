@@ -26,6 +26,7 @@ static NSString *const headCollection = @"headCollection";
     SHFlowLayout *_layout;
     NSMutableArray *_hotArray;
     NSMutableArray *_historyArray;
+    NSMutableArray *_newHistoryArray;
 }
 @end
 
@@ -43,7 +44,13 @@ static NSString *const headCollection = @"headCollection";
     _hotArray = [NSMutableArray arrayWithArray:[NSArray arrayWithObjects:@"家电的",@"对方的说法",@"舍得放开舍得放开",@"是",@"都结婚后很快就回家看很",@"舍得舍得放开",@"舍得放开舍得放开",@"舍得放开舍得放开", nil]];
 
     _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
-    
+    _newHistoryArray = [[NSMutableArray alloc] init];
+    //    反向迭代器
+    NSEnumerator *enumerator = [_historyArray reverseObjectEnumerator];
+    id objc;
+    while (objc =[enumerator nextObject]) {
+        [_newHistoryArray addObject:objc];
+    }
     [[SearchHistoryModel shareInstance]saveSearchItemHistory];
     [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
 }
@@ -75,7 +82,11 @@ static NSString *const headCollection = @"headCollection";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (section == 0) {
         return _hotArray.count;
-    }else return _historyArray.count;
+    }else{
+        if (_newHistoryArray.count >10) {
+            return 10;
+        } else return _newHistoryArray.count;
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -88,7 +99,7 @@ static NSString *const headCollection = @"headCollection";
     if (indexPath.section == 0) {
         cell.titleLabel.text = _hotArray[indexPath.item];
     }else {
-        cell.titleLabel.text = _historyArray[indexPath.item];
+        cell.titleLabel.text = _newHistoryArray[indexPath.item];
     }
     return cell;
 }
@@ -99,15 +110,19 @@ static NSString *const headCollection = @"headCollection";
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    
+ 
     UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headCollection forIndexPath:indexPath ];
+    CGFloat headerViewY = 0;
+    if (indexPath.section == 1) {
+        headerViewY = 200;
+    }
+    headerView.frame = CGRectMake(0, headerViewY, SCREENWIDTH, SectionHeaderHeight);
     headerView.backgroundColor= [UIColor whiteColor];
-    
     UIImageView *icon = [[UIImageView alloc]initWithFrame:CGRectMake(20, 5/2, 25, 25)];
     icon.image = indexPath.section == 0?[UIImage imageNamed:@"iconfont-remen"]:[UIImage imageNamed:@"iconfont-lishi"];
     [headerView addSubview:icon];
     
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH/2, 30)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, SCREENWIDTH/2, 30)];
     label.text = indexPath.section == 0? @"热门搜索":@"历史搜索";
     if (indexPath.section == 1) {
         UIButton *btn = [[UIButton alloc] init];
@@ -123,6 +138,7 @@ static NSString *const headCollection = @"headCollection";
     [headerView addSubview:label];
     return headerView;
 }
+//添加到
 - (void)clearBtn {
     [[SearchHistoryModel shareInstance] clearAllSearchHistory];
     [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
@@ -134,7 +150,7 @@ static NSString *const headCollection = @"headCollection";
         size  = [_hotArray[indexPath.item] sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13]}];
         
     }else {
-        size  = [_historyArray[indexPath.item] sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13]}];
+        size  = [_newHistoryArray[indexPath.item] sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13]}];
         
     }
     return  CGSizeMake(size.width+10, 30);
