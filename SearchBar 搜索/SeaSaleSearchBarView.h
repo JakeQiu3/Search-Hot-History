@@ -33,7 +33,7 @@
 
 @end
 
-@interface SearchBarView : UIView <UITextFieldDelegate, UISearchBarDelegate>
+@interface SeaSaleSearchBarView : UIView <UITextFieldDelegate, UISearchBarDelegate>
 {
 @private
     UIButton *searchButton;

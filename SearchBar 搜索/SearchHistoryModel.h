@@ -22,13 +22,6 @@
 -(NSMutableArray*)getSearchHistoryMArray;
 
 /**
- *  添加搜索记录
- *
- *  @param dic 搜索记录按字典添加
- */
--(void)addSearchHistoryWithDic:(NSDictionary*)dic;
-
-/**
  *  清空搜索记录
  */
 -(void)clearAllSearchHistory;
@@ -38,4 +31,5 @@
  * 保存搜索历史到文件
  */
 - (void)saveSearchItemHistory;
+
 @end

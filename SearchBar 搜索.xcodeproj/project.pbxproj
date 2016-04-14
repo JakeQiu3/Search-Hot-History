@@ -11,8 +11,9 @@
 		7312FEA41C33766700226180 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7312FEA31C33766700226180 /* AppDelegate.m */; };
 		7312FEAC1C33766700226180 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7312FEAB1C33766700226180 /* Assets.xcassets */; };
 		7312FEAF1C33766700226180 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7312FEAD1C33766700226180 /* LaunchScreen.storyboard */; };
+		73C73FB71CBFC0F300238D8A /* NSDictionary+QSYLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 73C73FB61CBFC0F300238D8A /* NSDictionary+QSYLog.m */; };
 		73E70BD91C34C999003CFDEE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BD81C34C999003CFDEE /* ViewController.m */; };
-		73E70BDC1C34CB7F003CFDEE /* SearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BDB1C34CB7F003CFDEE /* SearchBarView.m */; };
+		73E70BDC1C34CB7F003CFDEE /* SeaSaleSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BDB1C34CB7F003CFDEE /* SeaSaleSearchBarView.m */; };
 		73E70BE61C34CBCC003CFDEE /* UIKeyboardC+AccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BDF1C34CBCC003CFDEE /* UIKeyboardC+AccessObject.m */; };
 		73E70BE71C34CBCC003CFDEE /* UIKeyboardC+animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BE11C34CBCC003CFDEE /* UIKeyboardC+animation.m */; };
 		73E70BE81C34CBCC003CFDEE /* UIKeyboardC.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BE31C34CBCC003CFDEE /* UIKeyboardC.m */; };
@@ -20,7 +21,7 @@
 		73E70BFA1C353ECB003CFDEE /* MainSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BF91C353ECB003CFDEE /* MainSearchViewController.m */; };
 		73E70C021C353F42003CFDEE /* SHFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BFD1C353F42003CFDEE /* SHFlowLayout.m */; };
 		73E70C031C353F42003CFDEE /* SearchHistoryCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BFF1C353F42003CFDEE /* SearchHistoryCollectionCell.m */; };
-		73E70C041C353F42003CFDEE /* SearchHistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70C011C353F42003CFDEE /* SearchHistoryView.m */; };
+		73E70C041C353F42003CFDEE /* SearchHistoryAndHotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70C011C353F42003CFDEE /* SearchHistoryAndHotView.m */; };
 		73E70C091C35414A003CFDEE /* SearchHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70C081C35414A003CFDEE /* SearchHistoryModel.m */; };
 /* End PBXBuildFile section */
 
@@ -32,10 +33,13 @@
 		7312FEAB1C33766700226180 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7312FEAE1C33766700226180 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7312FEB01C33766700226180 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		73C73FB41CBFB3EA00238D8A /* SearchItemDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchItemDelegate.h; sourceTree = "<group>"; };
+		73C73FB51CBFC0F300238D8A /* NSDictionary+QSYLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+QSYLog.h"; sourceTree = "<group>"; };
+		73C73FB61CBFC0F300238D8A /* NSDictionary+QSYLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+QSYLog.m"; sourceTree = "<group>"; };
 		73E70BD71C34C999003CFDEE /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		73E70BD81C34C999003CFDEE /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		73E70BDA1C34CB7F003CFDEE /* SearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchBarView.h; path = ../SearchBarView.h; sourceTree = "<group>"; };
-		73E70BDB1C34CB7F003CFDEE /* SearchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchBarView.m; path = ../SearchBarView.m; sourceTree = "<group>"; };
+		73E70BDA1C34CB7F003CFDEE /* SeaSaleSearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SeaSaleSearchBarView.h; path = ../SeaSaleSearchBarView.h; sourceTree = "<group>"; };
+		73E70BDB1C34CB7F003CFDEE /* SeaSaleSearchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SeaSaleSearchBarView.m; path = ../SeaSaleSearchBarView.m; sourceTree = "<group>"; };
 		73E70BDE1C34CBCC003CFDEE /* UIKeyboardC+AccessObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKeyboardC+AccessObject.h"; sourceTree = "<group>"; };
 		73E70BDF1C34CBCC003CFDEE /* UIKeyboardC+AccessObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIKeyboardC+AccessObject.m"; sourceTree = "<group>"; };
 		73E70BE01C34CBCC003CFDEE /* UIKeyboardC+animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKeyboardC+animation.h"; sourceTree = "<group>"; };
@@ -50,8 +54,8 @@
 		73E70BFD1C353F42003CFDEE /* SHFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHFlowLayout.m; sourceTree = "<group>"; };
 		73E70BFE1C353F42003CFDEE /* SearchHistoryCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryCollectionCell.h; sourceTree = "<group>"; };
 		73E70BFF1C353F42003CFDEE /* SearchHistoryCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryCollectionCell.m; sourceTree = "<group>"; };
-		73E70C001C353F42003CFDEE /* SearchHistoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryView.h; sourceTree = "<group>"; };
-		73E70C011C353F42003CFDEE /* SearchHistoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryView.m; sourceTree = "<group>"; };
+		73E70C001C353F42003CFDEE /* SearchHistoryAndHotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryAndHotView.h; sourceTree = "<group>"; };
+		73E70C011C353F42003CFDEE /* SearchHistoryAndHotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryAndHotView.m; sourceTree = "<group>"; };
 		73E70C071C35414A003CFDEE /* SearchHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryModel.h; sourceTree = "<group>"; };
 		73E70C081C35414A003CFDEE /* SearchHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,9 +94,7 @@
 				7312FEA31C33766700226180 /* AppDelegate.m */,
 				73E70BD71C34C999003CFDEE /* ViewController.h */,
 				73E70BD81C34C999003CFDEE /* ViewController.m */,
-				73E70C0A1C35414D003CFDEE /* Model */,
-				73E70BFB1C353EDD003CFDEE /* Controller */,
-				73E70BCE1C34C5E9003CFDEE /* View */,
+				73C73FB31CBFB2B900238D8A /* 搜索Demo */,
 				73E70BEA1C34CC28003CFDEE /* Library */,
 				7312FEAB1C33766700226180 /* Assets.xcassets */,
 				7312FEAD1C33766700226180 /* LaunchScreen.storyboard */,
@@ -110,17 +112,28 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		73C73FB31CBFB2B900238D8A /* 搜索Demo */ = {
+			isa = PBXGroup;
+			children = (
+				73E70BFB1C353EDD003CFDEE /* Controller */,
+				73E70BCE1C34C5E9003CFDEE /* View */,
+				73E70C0A1C35414D003CFDEE /* Model */,
+			);
+			name = "搜索Demo";
+			sourceTree = "<group>";
+		};
 		73E70BCE1C34C5E9003CFDEE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				73E70BDA1C34CB7F003CFDEE /* SearchBarView.h */,
-				73E70BDB1C34CB7F003CFDEE /* SearchBarView.m */,
+				73E70C001C353F42003CFDEE /* SearchHistoryAndHotView.h */,
+				73E70C011C353F42003CFDEE /* SearchHistoryAndHotView.m */,
+				73E70BDA1C34CB7F003CFDEE /* SeaSaleSearchBarView.h */,
+				73E70BDB1C34CB7F003CFDEE /* SeaSaleSearchBarView.m */,
 				73E70BFC1C353F42003CFDEE /* SHFlowLayout.h */,
 				73E70BFD1C353F42003CFDEE /* SHFlowLayout.m */,
-				73E70C001C353F42003CFDEE /* SearchHistoryView.h */,
-				73E70C011C353F42003CFDEE /* SearchHistoryView.m */,
 				73E70BFE1C353F42003CFDEE /* SearchHistoryCollectionCell.h */,
 				73E70BFF1C353F42003CFDEE /* SearchHistoryCollectionCell.m */,
+				73C73FB41CBFB3EA00238D8A /* SearchItemDelegate.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -162,6 +175,8 @@
 			children = (
 				73E70C071C35414A003CFDEE /* SearchHistoryModel.h */,
 				73E70C081C35414A003CFDEE /* SearchHistoryModel.m */,
+				73C73FB51CBFC0F300238D8A /* NSDictionary+QSYLog.h */,
+				73C73FB61CBFC0F300238D8A /* NSDictionary+QSYLog.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -243,11 +258,12 @@
 				73E70BD91C34C999003CFDEE /* ViewController.m in Sources */,
 				73E70BE61C34CBCC003CFDEE /* UIKeyboardC+AccessObject.m in Sources */,
 				73E70BFA1C353ECB003CFDEE /* MainSearchViewController.m in Sources */,
-				73E70C041C353F42003CFDEE /* SearchHistoryView.m in Sources */,
+				73E70C041C353F42003CFDEE /* SearchHistoryAndHotView.m in Sources */,
 				73E70C031C353F42003CFDEE /* SearchHistoryCollectionCell.m in Sources */,
-				73E70BDC1C34CB7F003CFDEE /* SearchBarView.m in Sources */,
+				73E70BDC1C34CB7F003CFDEE /* SeaSaleSearchBarView.m in Sources */,
 				7312FEA11C33766700226180 /* main.m in Sources */,
 				73E70C021C353F42003CFDEE /* SHFlowLayout.m in Sources */,
+				73C73FB71CBFC0F300238D8A /* NSDictionary+QSYLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

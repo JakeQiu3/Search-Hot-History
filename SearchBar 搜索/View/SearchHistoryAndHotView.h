@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SearchItemDelegate.h"
+@interface SearchHistoryAndHotView : UIView
 
-@interface SearchHistoryView : UIView 
+@property (nonatomic, weak) id<SearchItemDelegate> searchHotAndHistoryDelegate;
 
 @end

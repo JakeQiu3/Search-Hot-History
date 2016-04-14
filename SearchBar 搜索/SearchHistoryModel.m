@@ -11,8 +11,6 @@
 
 #import "SearchHistoryModel.h"
 
-static SearchHistoryModel *searchHistory = nil;
-
 @interface SearchHistoryModel ()
 
 /**
@@ -20,15 +18,15 @@ static SearchHistoryModel *searchHistory = nil;
  */
 @property (nonatomic, strong) NSMutableArray *searchHistoryMArray;
 
-
 @end
 
 @implementation SearchHistoryModel
 
 +(SearchHistoryModel*)shareInstance {
+    static SearchHistoryModel *searchHistory = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (nil == searchHistory) {
+        if (!searchHistory) {
             searchHistory = [[SearchHistoryModel alloc] init];
         }
     });
@@ -39,34 +37,25 @@ static SearchHistoryModel *searchHistory = nil;
 -(instancetype)init{
     self = [super init];
     if (self) {
-        NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
-        NSString *searchStockPath = [path stringByAppendingPathComponent:ASETTING_SEARCH_ITEM_FILE_NAME];
-        
-        NSArray *fileArray = [NSMutableArray arrayWithContentsOfFile:searchStockPath];
-        self.searchHistoryMArray = [[NSMutableArray alloc] init];
-        
-        for (NSDictionary *d in fileArray)
-        {
-            if (nil != d)
-            {
+        NSArray *filePath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *path = [filePath lastObject];
+        NSString *searchPath = [path stringByAppendingPathComponent:ASETTING_SEARCH_ITEM_FILE_NAME];
+        NSArray *fileArray = [NSMutableArray arrayWithContentsOfFile:searchPath];
+        NSLog(@"打印：%@",fileArray);
+        for (NSString *d in fileArray) {
+            if (nil !=d) {
                 [self.searchHistoryMArray addObject:d];
             }
         }
-
+//        for (NSDictionary *d in fileArray)
+//        {
+//            if (nil != d)
+//            {
+//                [self.searchHistoryMArray addObject:d];
+//            }
+//        }
     }
-    
     return self;
-}
-
--(void)addSearchHistoryWithDic:(NSDictionary*)dic {
-    if (nil == dic) return;
-    NSInteger index = [[SearchHistoryModel shareInstance].searchHistoryMArray indexOfObject:dic];
-    if (index == NSNotFound || -1 == index) {
-        [[SearchHistoryModel shareInstance].searchHistoryMArray insertObject:dic atIndex:0];
-    } else {
-        // 存在
-    }
-    [[SearchHistoryModel shareInstance] saveSearchItemHistory];
 }
 
 -(void)clearAllSearchHistory {
@@ -74,7 +63,7 @@ static SearchHistoryModel *searchHistory = nil;
     [[SearchHistoryModel shareInstance] saveSearchItemHistory];
 }
 
--(NSMutableArray*)getSearchHistoryMArray {
+-(NSMutableArray*) getSearchHistoryMArray {
     return [SearchHistoryModel shareInstance].searchHistoryMArray;
 }
 
@@ -82,22 +71,23 @@ static SearchHistoryModel *searchHistory = nil;
 - (void)saveSearchItemHistory
 {
     NSMutableArray *fileArray = [[NSMutableArray alloc] init];
-    
-    for (NSDictionary *dic in self.searchHistoryMArray) {
-        [fileArray addObject:dic];
+    for (NSString  *d in self.searchHistoryMArray) {
+        [fileArray addObject:d];
     }
-    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
+//    for (NSDictionary *dic in self.searchHistoryMArray) {
+//        [fileArray addObject:dic];
+//    }
     
+    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
     path = [path stringByAppendingPathComponent:ASETTING_SEARCH_ITEM_FILE_NAME];
     [fileArray writeToFile:path atomically:YES];
 }
 
-#pragma mark =====
+#pragma mark =====getter 方法：获取该可变数组
 -(NSMutableArray *)searchHistoryMArray{
     if (!_searchHistoryMArray) {
-        _searchHistoryMArray = [NSMutableArray arrayWithCapacity:0];
+        _searchHistoryMArray = [[NSMutableArray alloc]init];
     }
-    
     return _searchHistoryMArray;
 }
 

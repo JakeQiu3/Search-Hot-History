@@ -2,19 +2,19 @@
 //  SearchBarView.m
 //  PManager
 //
-//  Created by 张浩 on 14-7-4.
+//  Created by qsy on 14-7-4.
 //  Copyright (c) 2014年 Huoli. All rights reserved.
 //
 
-#import "SearchBarView.h"
+#import "SeaSaleSearchBarView.h"
 
 static const CGFloat margin = 5;
 
-@interface SearchBarView ()
+@interface SeaSaleSearchBarView ()
 
 @end
 
-@implementation SearchBarView
+@implementation SeaSaleSearchBarView
 
 /*
  instancetype is a contextual keyword that is only permitted in the result type of an Objective-C method. 也就是说，instancetype只能作为返回值，不能像id那样作为参数。
@@ -172,13 +172,5 @@ static const CGFloat margin = 5;
     }
 }
 
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
 
 @end

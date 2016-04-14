@@ -7,19 +7,22 @@
 //
 
 #import "MainSearchViewController.h"
-#import "SearchBarView.h"
-#import "SearchHistoryView.h"
+#import "SeaSaleSearchBarView.h"
+#import "SearchHistoryAndHotView.h"
 #import "SearchHistoryModel.h"
 #define SCREENWIDTH  [UIScreen mainScreen].bounds.size.width
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
 #define DefaultColor [UIColor colorWithWhite:0.95 alpha:1.0]
-@interface MainSearchViewController () <UITextFieldDelegate,SearchBarViewDelegate,UITableViewDataSource,UITableViewDelegate>
+static NSString *const cellIdentifier = @"cellIdentifierKey";
+
+@interface MainSearchViewController () <UITextFieldDelegate,SearchBarViewDelegate,UITableViewDataSource,UITableViewDelegate,SearchItemDelegate>
 {
-    NSArray *_dataArray;//数据数组
-    NSMutableArray *_searchArray;//搜索内容数组
-    NSMutableArray *_historyArray;//输入搜索的历史数组
+    NSArray *_dataArray;//总的数据数组
+    NSMutableArray *_searchArray;//输入搜索关键字检索得到的内容数组，在dataArray
+    NSMutableArray *_historyArray;//历史数组
     UITableView *_tabeleView;
 }
+
 @end
 
 @implementation MainSearchViewController
@@ -27,17 +30,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = DefaultColor;
-    _historyArray = @[].mutableCopy;
-   
-    [self initNavigationBarItem];//初始化导航条内容
-    [self addSearchContentView];//添加搜索内容（热门和历史）视图
     [self initData];//初始化数据
+    [self initNavigationBarSearchBar];//初始化导航条内容
+    [self addSearchContentView];//添加搜索内容（热门和历史）视图
     [self creatTable];//创建搜索历史的tableview
     
 }
+//加载数据源
+- (void)initData {
+//    总的数据源，检索库
+    _dataArray = @[@"家电",@"说法",@"我就是我",@"是的",@"颜色不一样的烟花",@"我的生活没有自然和社会"];
+    _searchArray = [[NSMutableArray alloc] init];
+    _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
+}
 
-- (void)initNavigationBarItem {
-    SearchBarView *search = [[SearchBarView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH*2/3, 30) placeHolder:@"输入服务名称" Delegate:self];
+- (void)initNavigationBarSearchBar {
+    SeaSaleSearchBarView *search = [[SeaSaleSearchBarView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH*2/3, 30) placeHolder:@"输入服务名称" Delegate:self];
     search.layer.masksToBounds =YES;
     search.layer.cornerRadius = 10;
     search.searchBar.returnKeyType = UIReturnKeySearch;
@@ -49,17 +57,16 @@
     self.navigationItem.rightBarButtonItem = btn;
 }
 
-- (void)addSearchContentView {
-    SearchHistoryView *history = [[SearchHistoryView alloc]initWithFrame:self.view.bounds];
-    [self.view addSubview:history];
-
+- (void)popVC {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
-//加载数据源
-- (void)initData {
-//    热门搜索的数据
-    _dataArray = @[@"家电的",@"对方的说法",@"舍得放开舍得放开",@"是",@"都结婚后很快就回家看很"];
-    _searchArray = [[NSMutableArray alloc] init];
-    _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
+
+- (void)addSearchContentView {
+    SearchHistoryAndHotView *historyAndHotView = [[SearchHistoryAndHotView alloc]initWithFrame:self.view.bounds];
+    historyAndHotView.searchHotAndHistoryDelegate = self;
+    [self.view addSubview:historyAndHotView];
+
 }
 
 - (void)creatTable {
@@ -70,9 +77,10 @@
     _tabeleView.rowHeight = 50;
     _tabeleView.delegate = self;
     _tabeleView.dataSource = self;
+    [_tabeleView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
     [self.view addSubview:_tabeleView];
 }
-#pragma mark 代理方法
+#pragma mark   tableView的代理方法
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -82,21 +90,31 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"UITableViewCellIdentifierKey1";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-    }
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.textLabel.text = _searchArray[indexPath.row];
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell;
+    cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    NSLog(@"选择数据库中哪个关键字对应的搜索词进行搜索： %@",cell.textLabel.text);
+//    加入进历史搜索数组中
+    _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
+    if (![_historyArray containsObject:cell.textLabel.text]) {//判断是否包含该字段
+         [_historyArray addObject:cell.textLabel.text];
+    }
+}
+
+#pragma  mark 搜索的代理方法
 /**
  搜索框搜索按钮点击事件：点击搜索
  */
 - (void)searchBarFieldButtonClicked:(UISearchBar *)searchBar {
-    
-    [_historyArray addObject:searchBar.text];
+    _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
+    if (![_historyArray containsObject:searchBar.text]) {
+         [_historyArray addObject:searchBar.text];
+    }
     NSLog(@"跳转到新的控制器");
 }
 
@@ -113,13 +131,14 @@
 
 //搜索的方法：将数据源内搜索的数据加到加载到搜索数组内
 - (void)searchDataWithKeyWord:(NSString *)keyWord {
+    
     [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *tempString = obj;
-        if ([tempString containsString:@"舍"]||[tempString containsString:@"家"]||[tempString containsString:@"的"]||[tempString containsString:@"是"]) {
+        if ([tempString containsString:keyWord]||[tempString containsString:@"我"]) {
             NSMutableArray *tempArray = [[NSMutableArray alloc]init];
             [tempArray  addObject:tempString];
-            for (unsigned i = 0 ; i< [tempArray count]; i ++) {
-                if ( [_searchArray containsObject:tempArray[i]]==NO) {
+            for (unsigned i = 0 ; i< [tempArray count]; ++i) {
+                if (![_searchArray containsObject:tempArray[i]]) {
                     [_searchArray addObject:tempArray[i]];
                 }
             }
@@ -128,24 +147,22 @@
     [_tabeleView reloadData];//刷新表格
 }
 
-- (void)popVC {
-   
-    [self.navigationController popViewControllerAnimated:YES];
-}
+#pragma  mark 少 热门和历史搜索的Delegate方法
 
-// 点击搜索的cell
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-        NSLog(@"hhh");
-    UITableViewCell *cell;
-    cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-   _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
-    [_historyArray addObject:cell.textLabel.text];
-   
+- (void)searchItemClickHotItem:(NSString *)itemName collectionItem:(ClickCollectionItem)collectionItem {
+    if (collectionItem == ClickCollectionItemHot) {//若点击的是热门
+         NSLog(@"点击热门:%@",itemName);
+       
+    } else {//搜索历史记录
+         NSLog(@"点击搜索历史:%@",itemName);
+    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [_tabeleView endEditing:YES];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

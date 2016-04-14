@@ -9,6 +9,7 @@
 #import "SHFlowLayout.h"
 
 @implementation SHFlowLayout
+
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
     NSMutableArray *superAttributes = [NSMutableArray arrayWithArray:[super layoutAttributesForElementsInRect:rect]];//获取到的item数组
@@ -56,4 +57,5 @@
     
     return superAttributes;
 }
+
 @end
