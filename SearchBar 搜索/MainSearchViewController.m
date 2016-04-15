@@ -100,7 +100,6 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
     cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     NSLog(@"选择数据库中哪个关键字对应的搜索词进行搜索： %@",cell.textLabel.text);
 //    加入进历史搜索数组中
-    _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
     if (![_historyArray containsObject:cell.textLabel.text]) {//判断是否包含该字段
          [_historyArray addObject:cell.textLabel.text];
     }
@@ -111,7 +110,6 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
  搜索框搜索按钮点击事件：点击搜索
  */
 - (void)searchBarFieldButtonClicked:(UISearchBar *)searchBar {
-    _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
     if (![_historyArray containsObject:searchBar.text]) {
          [_historyArray addObject:searchBar.text];
     }

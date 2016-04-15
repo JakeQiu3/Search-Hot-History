@@ -45,7 +45,6 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
     _hotArray = [NSMutableArray arrayWithArray:[NSArray arrayWithObjects:@"Apple新品",@"iphone 6S",@"厨房餐拒绝",@"4K电视",@"回家结婚",@"美的空调",@"洗发水",@"美的空调",@"iphone 6S",@"4K电视",nil]];
 
     _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
-    [[SearchHistoryModel shareInstance] saveSearchItemHistory];
     //   反向迭代器
     NSEnumerator *enumerator = [_historyArray reverseObjectEnumerator];
     id objc;
