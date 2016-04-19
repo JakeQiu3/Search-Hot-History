@@ -12,4 +12,6 @@
 
 @property (nonatomic, weak) id<SearchItemDelegate> searchHotAndHistoryDelegate;
 
+- (void)addAllData;
+
 @end

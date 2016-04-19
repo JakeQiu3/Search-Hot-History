@@ -34,24 +34,27 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if ([super initWithFrame:frame]) {
-        [self initData];
+        [self addAllData];
         [self setupCollectionView];
     }
     return self;
 }
 
-- (void)initData {
+- (void)addAllData {
     _newHistoryArray = @[].mutableCopy;
     _hotArray = [NSMutableArray arrayWithArray:[NSArray arrayWithObjects:@"Apple新品",@"iphone 6S",@"厨房餐拒绝",@"4K电视",@"回家结婚",@"美的空调",@"洗发水",@"美的空调",@"iphone 6S",@"4K电视",nil]];
 
     _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
+    [[SearchHistoryModel shareInstance] saveSearchItemHistory];
     //   反向迭代器
     NSEnumerator *enumerator = [_historyArray reverseObjectEnumerator];
     id objc;
     while (objc =[enumerator nextObject]) {
         [_newHistoryArray addObject:objc];
     }
-    [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
+    });
 }
 
 - (void)setupCollectionView {
@@ -155,10 +158,18 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
 }
 // 清除历史记录
 - (void)clearBtn:(UIButton *)btn {
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
+    });
 //   清除存储的数据源
-    [[SearchHistoryModel shareInstance] clearAllSearchHistory];
-    [_newHistoryArray removeAllObjects];
-    [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
+//    [[SearchHistoryModel shareInstance] clearAllSearchHistory];
+//    [[SearchHistoryModel shareInstance] saveSearchItemHistory];
+//    [_newHistoryArray removeAllObjects];
+//    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
+//    });
 }
 
 //根据文字大小计算不同item的尺寸

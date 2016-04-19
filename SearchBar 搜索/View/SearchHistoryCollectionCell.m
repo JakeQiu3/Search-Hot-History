@@ -22,18 +22,19 @@
         self.layer.masksToBounds = YES;
         self.layer.cornerRadius = 5;
         self.backgroundColor = DefaultColor;
-        [self layout];
     }
     return self;
 }
-
-- (void)layout {
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-    titleLabel.font = [UIFont systemFontOfSize:16];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.numberOfLines = 1;
-    [self.contentView addSubview:titleLabel];
-     self.titleLabel = titleLabel;
+- (UILabel *)titleLabel {
+    if (!_titleLabel ) {
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0, self.bounds.size.width, self.bounds.size.height)];
+        _titleLabel.backgroundColor = [UIColor greenColor];
+        _titleLabel.font = [UIFont systemFontOfSize:16];
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.numberOfLines = 1;
+        [self.contentView addSubview:_titleLabel];
+    }
+    return _titleLabel;
 }
 
 - (void)awakeFromNib {

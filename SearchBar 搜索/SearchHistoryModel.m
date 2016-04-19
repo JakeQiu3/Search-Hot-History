@@ -60,7 +60,6 @@
 
 -(void)clearAllSearchHistory {
     [[SearchHistoryModel shareInstance].searchHistoryMArray removeAllObjects];
-    [[SearchHistoryModel shareInstance] saveSearchItemHistory];
 }
 
 -(NSMutableArray*) getSearchHistoryMArray {
@@ -74,10 +73,6 @@
     for (NSString  *d in self.searchHistoryMArray) {
         [fileArray addObject:d];
     }
-//    for (NSDictionary *dic in self.searchHistoryMArray) {
-//        [fileArray addObject:dic];
-//    }
-    
     NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
     path = [path stringByAppendingPathComponent:ASETTING_SEARCH_ITEM_FILE_NAME];
     [fileArray writeToFile:path atomically:YES];

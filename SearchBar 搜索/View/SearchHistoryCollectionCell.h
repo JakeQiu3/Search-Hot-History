@@ -10,6 +10,6 @@
 #define DefaultColor [UIColor colorWithWhite:0.95 alpha:1.0]
 @interface SearchHistoryCollectionCell : UICollectionViewCell
 
-@property (weak, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *titleLabel;
 
 @end

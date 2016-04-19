@@ -11,6 +11,7 @@
 		7312FEA41C33766700226180 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7312FEA31C33766700226180 /* AppDelegate.m */; };
 		7312FEAC1C33766700226180 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7312FEAB1C33766700226180 /* Assets.xcassets */; };
 		7312FEAF1C33766700226180 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7312FEAD1C33766700226180 /* LaunchScreen.storyboard */; };
+		731EBDDE1CC6461500073AB7 /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 731EBDDD1CC6461500073AB7 /* NextViewController.m */; };
 		73C73FB71CBFC0F300238D8A /* NSDictionary+QSYLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 73C73FB61CBFC0F300238D8A /* NSDictionary+QSYLog.m */; };
 		73E70BD91C34C999003CFDEE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BD81C34C999003CFDEE /* ViewController.m */; };
 		73E70BDC1C34CB7F003CFDEE /* SeaSaleSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E70BDB1C34CB7F003CFDEE /* SeaSaleSearchBarView.m */; };
@@ -33,6 +34,8 @@
 		7312FEAB1C33766700226180 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7312FEAE1C33766700226180 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7312FEB01C33766700226180 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		731EBDDC1CC6461500073AB7 /* NextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextViewController.h; sourceTree = "<group>"; };
+		731EBDDD1CC6461500073AB7 /* NextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextViewController.m; sourceTree = "<group>"; };
 		73C73FB41CBFB3EA00238D8A /* SearchItemDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchItemDelegate.h; sourceTree = "<group>"; };
 		73C73FB51CBFC0F300238D8A /* NSDictionary+QSYLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+QSYLog.h"; sourceTree = "<group>"; };
 		73C73FB61CBFC0F300238D8A /* NSDictionary+QSYLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+QSYLog.m"; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 			children = (
 				73E70BF81C353ECB003CFDEE /* MainSearchViewController.h */,
 				73E70BF91C353ECB003CFDEE /* MainSearchViewController.m */,
+				731EBDDC1CC6461500073AB7 /* NextViewController.h */,
+				731EBDDD1CC6461500073AB7 /* NextViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 				73E70BFA1C353ECB003CFDEE /* MainSearchViewController.m in Sources */,
 				73E70C041C353F42003CFDEE /* SearchHistoryAndHotView.m in Sources */,
 				73E70C031C353F42003CFDEE /* SearchHistoryCollectionCell.m in Sources */,
+				731EBDDE1CC6461500073AB7 /* NextViewController.m in Sources */,
 				73E70BDC1C34CB7F003CFDEE /* SeaSaleSearchBarView.m in Sources */,
 				7312FEA11C33766700226180 /* main.m in Sources */,
 				73E70C021C353F42003CFDEE /* SHFlowLayout.m in Sources */,

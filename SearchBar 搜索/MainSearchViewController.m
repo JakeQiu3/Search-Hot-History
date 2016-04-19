@@ -10,6 +10,8 @@
 #import "SeaSaleSearchBarView.h"
 #import "SearchHistoryAndHotView.h"
 #import "SearchHistoryModel.h"
+#import "NextViewController.h"
+
 #define SCREENWIDTH  [UIScreen mainScreen].bounds.size.width
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
 #define DefaultColor [UIColor colorWithWhite:0.95 alpha:1.0]
@@ -22,11 +24,17 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
     NSMutableArray *_historyArray;//历史数组
     UITableView *_tabeleView;
     SeaSaleSearchBarView *search;
+    SearchHistoryAndHotView *historyAndHotView;//搜索的View
 }
 
 @end
 
 @implementation MainSearchViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [search.searchBar becomeFirstResponder];
+}
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -64,12 +72,11 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
 }
 
 - (void)popVC {
-    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)addSearchContentView {
-    SearchHistoryAndHotView *historyAndHotView = [[SearchHistoryAndHotView alloc]initWithFrame:self.view.bounds];
+    historyAndHotView = [[SearchHistoryAndHotView alloc]initWithFrame:self.view.bounds];
     historyAndHotView.searchHotAndHistoryDelegate = self;
     [self.view addSubview:historyAndHotView];
 
@@ -109,6 +116,7 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
     if (![_historyArray containsObject:cell.textLabel.text]) {//判断是否包含该字段
          [_historyArray addObject:cell.textLabel.text];
     }
+     [self jumpToSearchResult:cell.textLabel.text];
 }
 
 #pragma  mark 搜索的代理方法
@@ -116,10 +124,13 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
  搜索框搜索按钮点击事件：点击搜索
  */
 - (void)searchBarFieldButtonClicked:(UISearchBar *)searchBar {
+    
     if (![_historyArray containsObject:searchBar.text]) {
          [_historyArray addObject:searchBar.text];
     }
     NSLog(@"跳转到新的控制器");
+//   跳转方法
+    [self jumpToSearchResult:searchBar.text];
 }
 
 /**
@@ -156,17 +167,24 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
 - (void)searchItemClickHotItem:(NSString *)itemName collectionItem:(ClickCollectionItem)collectionItem {
     if (collectionItem == ClickCollectionItemHot) {//若点击的是热门
          NSLog(@"点击热门:%@",itemName);
-       
     } else {//搜索历史记录
          NSLog(@"点击搜索历史:%@",itemName);
     }
+    [self jumpToSearchResult:itemName];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [_tabeleView endEditing:YES];
 }
 
-
+#pragma mark  少  新增搜索结果的界面数据
+- (void)jumpToSearchResult:(NSString *)goodsName {
+    NextViewController *searchVC = [[NextViewController alloc] init];
+//    传递搜索内容给下一级别界面作为参数
+//    searchVC.searchKey = goodsName;
+    searchVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:searchVC animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
