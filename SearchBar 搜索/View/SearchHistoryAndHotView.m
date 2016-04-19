@@ -25,7 +25,7 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
     SHFlowLayout *_layout;
     NSMutableArray *_hotArray;//热门数组
     NSMutableArray *_historyArray;//历史数组
-    NSMutableArray *_newHistoryArray;//倒序处理后的的历史数组：数据源
+//    NSMutableArray *_newHistoryArray;//倒序处理后的的历史数组：数据源
 }
 
 @end
@@ -41,20 +41,16 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
 }
 
 - (void)addAllData {
-    _newHistoryArray = @[].mutableCopy;
+    
     _hotArray = [NSMutableArray arrayWithArray:[NSArray arrayWithObjects:@"Apple新品",@"iphone 6S",@"厨房餐拒绝",@"4K电视",@"回家结婚",@"美的空调",@"洗发水",@"美的空调",@"iphone 6S",@"4K电视",nil]];
 
     _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
-    [[SearchHistoryModel shareInstance] saveSearchItemHistory];
-    //   反向迭代器
-    NSEnumerator *enumerator = [_historyArray reverseObjectEnumerator];
-    id objc;
-    while (objc =[enumerator nextObject]) {
-        [_newHistoryArray addObject:objc];
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
-    });
+//    //   反向迭代器：原数组不变
+//    NSEnumerator *enumerator = [_historyArray reverseObjectEnumerator];
+//    id objc;
+//    while (objc =[enumerator nextObject]) {
+//        [_newHistoryArray addObject:objc];
+//    }
 }
 
 - (void)setupCollectionView {
@@ -91,9 +87,9 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
     if (section == 0) {
         return _hotArray.count;
     }else{
-        if (_newHistoryArray.count >10) {
+        if (_historyArray.count >10) {
             return 10;
-        } else return _newHistoryArray.count;
+        } else return _historyArray.count;
     }
 }
 
@@ -102,7 +98,7 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
     if (indexPath.section == 0) {
         cell.titleLabel.text = _hotArray[indexPath.item];
     } else {
-        cell.titleLabel.text = _newHistoryArray[indexPath.item];
+        cell.titleLabel.text = _historyArray[indexPath.item];
     }
     return cell;
 }
@@ -158,18 +154,15 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
 }
 // 清除历史记录
 - (void)clearBtn:(UIButton *)btn {
-
+//   清除存储的数据源
+    [[SearchHistoryModel shareInstance] clearAllSearchHistory];
+    [[SearchHistoryModel shareInstance] saveSearchItemHistory];
+    
+    [_historyArray removeAllObjects];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
     });
-//   清除存储的数据源
-//    [[SearchHistoryModel shareInstance] clearAllSearchHistory];
-//    [[SearchHistoryModel shareInstance] saveSearchItemHistory];
-//    [_newHistoryArray removeAllObjects];
-//    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
-//    });
 }
 
 //根据文字大小计算不同item的尺寸
@@ -179,7 +172,7 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
         size  = [_hotArray[indexPath.item] sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]}];
         
     }else {
-        size  = [_newHistoryArray[indexPath.item] sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]}];
+        size  = [_historyArray[indexPath.item] sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]}];
         
     }
     return  CGSizeMake(size.width+10, 30);
@@ -195,7 +188,7 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
     } else {
 //        NSLog(@"点击搜索历史:%@",_newHistoryArray[indexPath.item]);
         if (self.searchHotAndHistoryDelegate && [self.searchHotAndHistoryDelegate respondsToSelector:@selector(searchItemClickHotItem:collectionItem:)]) {
-            [_searchHotAndHistoryDelegate searchItemClickHotItem:_newHistoryArray[indexPath.item] collectionItem:ClickCollectionItemHistory];
+            [_searchHotAndHistoryDelegate searchItemClickHotItem:_historyArray[indexPath.item] collectionItem:ClickCollectionItemHistory];
         }
     }
 }

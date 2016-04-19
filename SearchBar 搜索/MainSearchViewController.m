@@ -33,7 +33,11 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [search.searchBar becomeFirstResponder];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [search.searchBar becomeFirstResponder];
+    });
+   
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -93,6 +97,7 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
     [_tabeleView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
     [self.view addSubview:_tabeleView];
 }
+
 #pragma mark   tableView的代理方法
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -112,10 +117,12 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
     UITableViewCell *cell;
     cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     NSLog(@"选择数据库中哪个关键字对应的搜索词进行搜索： %@",cell.textLabel.text);
-//    加入进历史搜索数组中
-    if (![_historyArray containsObject:cell.textLabel.text]) {//判断是否包含该字段
-         [_historyArray addObject:cell.textLabel.text];
-    }
+//   加入进历史搜索数组中
+    [_historyArray containsObject:cell.textLabel.text] ? ([_historyArray removeObject:cell.textLabel.text]) : nil;
+    [_historyArray insertObject:cell.textLabel.text atIndex:0];
+    //    保存该新增的字符串到本地
+    [[SearchHistoryModel shareInstance]saveSearchItemHistory];
+    
      [self jumpToSearchResult:cell.textLabel.text];
 }
 
@@ -125,9 +132,10 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
  */
 - (void)searchBarFieldButtonClicked:(UISearchBar *)searchBar {
     
-    if (![_historyArray containsObject:searchBar.text]) {
-         [_historyArray addObject:searchBar.text];
-    }
+    [_historyArray containsObject:searchBar.text] ? ([_historyArray removeObject:searchBar.text]) : nil;
+    [_historyArray insertObject:searchBar.text atIndex:0];
+    //        保存该新增的字符串到本地
+    [[SearchHistoryModel shareInstance]saveSearchItemHistory];
     NSLog(@"跳转到新的控制器");
 //   跳转方法
     [self jumpToSearchResult:searchBar.text];
@@ -163,13 +171,18 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
 }
 
 #pragma  mark 少 热门和历史搜索的Delegate方法
-
 - (void)searchItemClickHotItem:(NSString *)itemName collectionItem:(ClickCollectionItem)collectionItem {
     if (collectionItem == ClickCollectionItemHot) {//若点击的是热门
          NSLog(@"点击热门:%@",itemName);
     } else {//搜索历史记录
+//  调整单利数组中位置
+         [_historyArray removeObject:itemName];
+         [_historyArray insertObject:itemName atIndex:0];
+        //    保存该新增的字符串到本地
+        [[SearchHistoryModel shareInstance]saveSearchItemHistory];
          NSLog(@"点击搜索历史:%@",itemName);
     }
+    
     [self jumpToSearchResult:itemName];
 }
 

@@ -22,7 +22,7 @@
 
 @implementation SearchHistoryModel
 
-+(SearchHistoryModel*)shareInstance {
++ (SearchHistoryModel*)shareInstance {
     static SearchHistoryModel *searchHistory = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -41,7 +41,7 @@
         NSString *path = [filePath lastObject];
         NSString *searchPath = [path stringByAppendingPathComponent:ASETTING_SEARCH_ITEM_FILE_NAME];
         NSArray *fileArray = [NSMutableArray arrayWithContentsOfFile:searchPath];
-        NSLog(@"打印：%@",fileArray);
+        NSLog(@"打印路径：%@",searchPath);
         for (NSString *d in fileArray) {
             if (nil !=d) {
                 [self.searchHistoryMArray addObject:d];
@@ -57,20 +57,33 @@
     }
     return self;
 }
-
--(void)clearAllSearchHistory {
-    [[SearchHistoryModel shareInstance].searchHistoryMArray removeAllObjects];
-}
-
+//获取单利的数组
 -(NSMutableArray*) getSearchHistoryMArray {
     return [SearchHistoryModel shareInstance].searchHistoryMArray;
+}
+
+//清除搜索记录
+-(void)clearAllSearchHistory {
+    [[SearchHistoryModel shareInstance].searchHistoryMArray removeAllObjects];
 }
 
 // 保存历史记录
 - (void)saveSearchItemHistory
 {
+//    仅仅保存记录10个历史记录
+    if ([self.searchHistoryMArray count]>10) {
+    [_searchHistoryMArray removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(10, _searchHistoryMArray.count-10)]];
+    }
+    
+    //        for (NSDictionary *d in fileArray)
+    //        {
+    //            if (nil != d)
+    //            {
+    //                [self.searchHistoryMArray addObject:d];
+    //            }
+    //        }
     NSMutableArray *fileArray = [[NSMutableArray alloc] init];
-    for (NSString  *d in self.searchHistoryMArray) {
+    for (NSString  *d in _searchHistoryMArray) {
         [fileArray addObject:d];
     }
     NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
