@@ -21,11 +21,17 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
     NSMutableArray *_searchArray;//输入搜索关键字检索得到的内容数组，在dataArray
     NSMutableArray *_historyArray;//历史数组
     UITableView *_tabeleView;
+    SeaSaleSearchBarView *search;
 }
 
 @end
 
 @implementation MainSearchViewController
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [search endEditing:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,7 +51,7 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
 }
 
 - (void)initNavigationBarSearchBar {
-    SeaSaleSearchBarView *search = [[SeaSaleSearchBarView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH*2/3, 30) placeHolder:@"输入服务名称" Delegate:self];
+    search = [[SeaSaleSearchBarView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH*2/3, 30) placeHolder:@"输入服务名称" Delegate:self];
     search.layer.masksToBounds =YES;
     search.layer.cornerRadius = 10;
     search.searchBar.returnKeyType = UIReturnKeySearch;
