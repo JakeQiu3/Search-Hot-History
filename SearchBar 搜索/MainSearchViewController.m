@@ -117,25 +117,26 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
     UITableViewCell *cell;
     cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     NSLog(@"选择数据库中哪个关键字对应的搜索词进行搜索： %@",cell.textLabel.text);
-//   加入进历史搜索数组中
-    [_historyArray containsObject:cell.textLabel.text] ? ([_historyArray removeObject:cell.textLabel.text]) : nil;
-    [_historyArray insertObject:cell.textLabel.text atIndex:0];
-    //    保存该新增的字符串到本地
-    [[SearchHistoryModel shareInstance]saveSearchItemHistory];
+    [self saveHistoryAdjustLocation:cell.textLabel.text];
     
      [self jumpToSearchResult:cell.textLabel.text];
 }
 
+//保存最新搜索的内容到本地数组的第0位
+
+- (void)saveHistoryAdjustLocation:(NSString *)searchText {
+    //   加入进历史搜索数组中
+    [_historyArray containsObject:searchText] ? ([_historyArray removeObject:searchText]) : nil;
+    [_historyArray insertObject:searchText atIndex:0];
+    //    保存该新增的字符串到本地
+    [[SearchHistoryModel shareInstance]saveSearchItemHistory];
+}
 #pragma  mark 搜索的代理方法
 /**
  搜索框搜索按钮点击事件：点击搜索
  */
 - (void)searchBarFieldButtonClicked:(UISearchBar *)searchBar {
-    
-    [_historyArray containsObject:searchBar.text] ? ([_historyArray removeObject:searchBar.text]) : nil;
-    [_historyArray insertObject:searchBar.text atIndex:0];
-    //        保存该新增的字符串到本地
-    [[SearchHistoryModel shareInstance]saveSearchItemHistory];
+    [self saveHistoryAdjustLocation:searchBar.text];
     NSLog(@"跳转到新的控制器");
 //   跳转方法
     [self jumpToSearchResult:searchBar.text];
@@ -176,11 +177,8 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
          NSLog(@"点击热门:%@",itemName);
     } else {//搜索历史记录
 //  调整单利数组中位置
-         [_historyArray removeObject:itemName];
-         [_historyArray insertObject:itemName atIndex:0];
-        //    保存该新增的字符串到本地
-        [[SearchHistoryModel shareInstance]saveSearchItemHistory];
-         NSLog(@"点击搜索历史:%@",itemName);
+        [self saveHistoryAdjustLocation:itemName];
+        NSLog(@"点击搜索历史:%@",itemName);
     }
     
     [self jumpToSearchResult:itemName];
