@@ -12,7 +12,9 @@
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-    NSMutableArray *superAttributes = [NSMutableArray arrayWithArray:[super layoutAttributesForElementsInRect:rect]];//获取到的item数组
+    NSArray * originalArray = [super layoutAttributesForElementsInRect:rect];
+    NSMutableArray *superAttributes =[[NSMutableArray alloc] initWithArray:originalArray copyItems:YES];
+    // [NSMutableArray arrayWithArray:originalArray];//获取到的item数组
     
     NSMutableDictionary *rowCollections = [NSMutableDictionary new];//创建字典存储所有item的布局
     

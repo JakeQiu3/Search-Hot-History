@@ -21,11 +21,9 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
 
 @interface SearchHistoryAndHotView() <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 {
-    UICollectionView *_collectionView;
     SHFlowLayout *_layout;
     NSMutableArray *_hotArray;//热门数组
     NSMutableArray *_historyArray;//历史数组
-//    NSMutableArray *_newHistoryArray;//倒序处理后的的历史数组：数据源
 }
 
 @end
@@ -33,11 +31,18 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
 @implementation SearchHistoryAndHotView
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    if ([super initWithFrame:frame]) {
+   self =  [super initWithFrame:frame];
+    if (self) {
+        self.scrollEnabled = YES;
+        self.contentSize = CGSizeMake(SCREENWIDTH, self.bounds.size.height +30);
         [self addAllData];
         [self setupCollectionView];
     }
     return self;
+}
+//获取到输入框控件
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+//    [ endEditing:YES];
 }
 
 - (void)addAllData {
@@ -70,6 +75,8 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
     [self addSubview:_collectionView];
     [self registerIdentifier];
 }
+
+
 
 - (void)registerIdentifier {
     [_collectionView registerClass:[SearchHistoryCollectionCell class] forCellWithReuseIdentifier:itemCollectionIdentifier];
@@ -188,6 +195,8 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
     } else {
 //        NSLog(@"点击搜索历史:%@",_newHistoryArray[indexPath.item]);
         if (self.searchHotAndHistoryDelegate && [self.searchHotAndHistoryDelegate respondsToSelector:@selector(searchItemClickHotItem:collectionItem:)]) {
+            NSLog(@"%@",_historyArray);
+            
             [_searchHotAndHistoryDelegate searchItemClickHotItem:_historyArray[indexPath.item] collectionItem:ClickCollectionItemHistory];
         }
     }

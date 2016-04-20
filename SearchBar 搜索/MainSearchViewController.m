@@ -33,11 +33,11 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [search.searchBar becomeFirstResponder];
-    });
-   
+    if (historyAndHotView) {
+        [historyAndHotView removeFromSuperview];
+    }
+    [self addSearchContentView];//添加搜索内容（热门和历史）视图
+    [search.searchBar becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -50,10 +50,11 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
     self.view.backgroundColor = DefaultColor;
     [self initData];//初始化数据
     [self initNavigationBarSearchBar];//初始化导航条内容
-    [self addSearchContentView];//添加搜索内容（热门和历史）视图
+//    [self addSearchContentView];//添加搜索内容（热门和历史）视图
     [self creatTable];//创建搜索历史的tableview
     
 }
+
 //加载数据源
 - (void)initData {
 //    总的数据源，检索库
@@ -80,7 +81,8 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
 }
 
 - (void)addSearchContentView {
-    historyAndHotView = [[SearchHistoryAndHotView alloc]initWithFrame:self.view.bounds];
+    
+   historyAndHotView = [[SearchHistoryAndHotView alloc]initWithFrame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT-64)];
     historyAndHotView.searchHotAndHistoryDelegate = self;
     [self.view addSubview:historyAndHotView];
 
@@ -129,7 +131,7 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
     [_historyArray containsObject:searchText] ? ([_historyArray removeObject:searchText]) : nil;
     [_historyArray insertObject:searchText atIndex:0];
     //    保存该新增的字符串到本地
-    [[SearchHistoryModel shareInstance]saveSearchItemHistory];
+    [[SearchHistoryModel shareInstance] saveSearchItemHistory];
 }
 #pragma  mark 搜索的代理方法
 /**
@@ -180,12 +182,7 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
         [self saveHistoryAdjustLocation:itemName];
         NSLog(@"点击搜索历史:%@",itemName);
     }
-    
     [self jumpToSearchResult:itemName];
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [_tabeleView endEditing:YES];
 }
 
 #pragma mark  少  新增搜索结果的界面数据

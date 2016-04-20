@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "SearchItemDelegate.h"
-@interface SearchHistoryAndHotView : UIView
+@interface SearchHistoryAndHotView : UIScrollView
 
 @property (nonatomic, weak) id<SearchItemDelegate> searchHotAndHistoryDelegate;
 
-- (void)addAllData;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
