@@ -19,4 +19,6 @@ typedef NS_ENUM(NSInteger, ClickCollectionItem) {
 #pragma mark 点击热门搜索和历史搜索的代理方法
 - (void)searchItemClickHotItem:(NSString *) itemName collectionItem:(ClickCollectionItem )collectionItem;
 
+- (void)searchBarResignWhenScroll;
+
 @end

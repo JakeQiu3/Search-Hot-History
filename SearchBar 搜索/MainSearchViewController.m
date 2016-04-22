@@ -194,6 +194,9 @@ static NSString *const cellIdentifier = @"cellIdentifierKey";
     [self.navigationController pushViewController:searchVC animated:YES];
 }
 
+- (void)searchBarResignWhenScroll {
+    [search endEditing:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     

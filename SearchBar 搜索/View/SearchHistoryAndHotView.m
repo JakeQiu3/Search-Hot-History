@@ -19,7 +19,7 @@ static NSString *const itemCollectionIdentifier =  @"itemCollection";
 static NSString *const headerCollectionIdentifier = @"headerCollection";
 static NSString *const footerCollectionIdentifier = @"footerCollection";
 
-@interface SearchHistoryAndHotView() <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface SearchHistoryAndHotView() <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>
 {
     SHFlowLayout *_layout;
     NSMutableArray *_hotArray;//热门数组
@@ -35,14 +35,11 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
     if (self) {
         self.scrollEnabled = YES;
         self.contentSize = CGSizeMake(SCREENWIDTH, self.bounds.size.height +30);
+        self.delegate = self;
         [self addAllData];
         [self setupCollectionView];
     }
     return self;
-}
-//获取到输入框控件
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-//    [ endEditing:YES];
 }
 
 - (void)addAllData {
@@ -202,6 +199,11 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
     }
 }
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (self.searchHotAndHistoryDelegate && [self.searchHotAndHistoryDelegate respondsToSelector:@selector(searchBarResignWhenScroll)]) {
+        [self.searchHotAndHistoryDelegate searchBarResignWhenScroll];
+    }
+}
 
 
 @end
