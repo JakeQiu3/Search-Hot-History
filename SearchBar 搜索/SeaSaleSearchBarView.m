@@ -3,7 +3,7 @@
 //  PManager
 //
 //  Created by qsy on 14-7-4.
-//  Copyright (c) 2014年 Huoli. All rights reserved.
+//  Copyright (c) 2014年 qsy. All rights reserved.
 //
 
 #import "SeaSaleSearchBarView.h"
