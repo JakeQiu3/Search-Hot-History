@@ -44,7 +44,7 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
 
 - (void)addAllData {
     
-    _hotArray = [NSMutableArray arrayWithArray:[NSArray arrayWithObjects:@"Apple新品",@"iphone 6S",@"厨房餐拒绝",@"4K电视",@"回家结婚",@"美的空调",@"洗发水",@"美的空调",@"iphone 6S",@"4K电视",nil]];
+    _hotArray = [NSMutableArray arrayWithArray:[NSArray arrayWithObjects:@"Apple新品你买么不买拉倒",@"iphone 6S",@"厨房餐拒绝",@"4K电视",@"回家结婚",@"美的空调",@"洗发水",@"美的空调",@"iphone 6S",@"4K电视",@"Apple新品你买么不买拉倒",@"iphone 6S",@"厨房餐拒绝",@"4K电视",@"回家结婚",@"美的空调",@"洗发水",@"美的空调",@"iphone 6S",@"4K电视",@"Apple新品你买么不买拉倒",@"iphone 6S",@"厨房餐拒绝",@"4K电视",@"回家结婚",@"美的空调",@"洗发水",@"美的空调",@"iphone 6S",@"4K电视",nil]];
 
     _historyArray = [[SearchHistoryModel shareInstance] getSearchHistoryMArray];
 //    //   反向迭代器：原数组不变
@@ -101,9 +101,12 @@ static NSString *const footerCollectionIdentifier = @"footerCollection";
     SearchHistoryCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:itemCollectionIdentifier forIndexPath:indexPath];
     if (indexPath.section == 0) {
         cell.titleLabel.text = _hotArray[indexPath.item];
+        cell.titleLabel.frame = CGRectMake(0, 0, cell.bounds.size.width, cell.bounds.size.height);
     } else {
         cell.titleLabel.text = _historyArray[indexPath.item];
+        cell.frame = CGRectMake(0, 0, cell.bounds.size.width, cell.bounds.size.height);
     }
+    
     return cell;
 }
 
